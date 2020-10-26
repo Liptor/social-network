@@ -1,0 +1,26 @@
+.dialogs {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+}
+
+.dialogsItems {
+    padding: 30px;
+}
+
+.dialogsItems .active {
+    color: red;
+}
+
+.messages {
+    padding: 30px;
+}
+
+.sendText {
+    padding: 20px;
+}
+
+.sendText {
+    display: grid;
+    grid-template-columns: 15em;
+    grid-template-rows: 2fr;
+}

@@ -1,0 +1,17 @@
+.descriptionBlock {
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+}
+
+.galochka img {
+    width: 20px;
+    height: 20px;
+}
+
+.mainPhoto {
+    max-width: 150px;
+}
+
+.contact {
+    padding-left: 20px;
+}

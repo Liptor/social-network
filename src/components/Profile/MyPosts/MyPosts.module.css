@@ -1,0 +1,16 @@
+.myPosts {
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+}
+
+.item {
+  color: red;
+}
+
+.postsBlock {
+  padding: 10px;
+}
+
+.posts {
+  margin-top: 10px;
+}

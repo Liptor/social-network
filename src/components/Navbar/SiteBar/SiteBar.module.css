@@ -1,0 +1,14 @@
+.siteBar {
+    padding: 30px;
+}
+
+.siteBar .listOfFriends {
+    margin-left: auto;
+    margin-right: auto;
+    width: 4em;
+}
+
+.siteBar .friends {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
