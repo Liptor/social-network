@@ -1,7 +1,7 @@
 export type PhotosType = {
-    small: string | null
-    large: string | null
-  }
+  small: string | null
+  large: string | null
+}
 export type UsersType = {
     id: number
     name: string
@@ -9,3 +9,8 @@ export type UsersType = {
     photos: PhotosType
     followed: boolean
 }
+export type DialogsDataType = {
+  id: number
+  name: string
+}
+
