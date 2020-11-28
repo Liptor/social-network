@@ -4,13 +4,15 @@ import { stopSubmit } from "redux-form";
 const SET_USER_DATA = 'SET_USER_DATA';
 
 let initialState = {
-    userID: null,
-    email: null,
-    login: null,
+    userID: null as number | null,
+    email: null as string | null,
+    login: null as string | null,
     isAuth: false
 };
 
-const authReducer = (state = initialState, action) => {
+export type InitialStateType = typeof initialState;
+
+const authReducer = (state = initialState, action: any): InitialStateType => {
     switch (action.type) {
         case SET_USER_DATA:
             return {
@@ -22,12 +24,23 @@ const authReducer = (state = initialState, action) => {
     }
 };
 
-export const setAuthUserData = (userId, email, login, isAuth) => ({
+type SetAuthDataActionPayloadType = {
+    userId: number | null,
+    email: string | null,
+    login: string | null,
+    isAuth: boolean | null
+}
+type SetAuthUserData = {
+    type: typeof SET_USER_DATA,
+    payload: SetAuthDataActionPayloadType
+}
+
+export const setAuthUserData = (userId: number | null, email: string | null, login: string | null, isAuth: boolean): SetAuthUserData => ({
     type: SET_USER_DATA, payload: { userId, email, login, isAuth }
 });
 
 export const getAuthUserData = () => {
-    return (dispatch) => {
+    return (dispatch: any) => {
         authAPI.me()
             .then(response => {
                 if (response.data.resultCode === 0) {
@@ -38,8 +51,8 @@ export const getAuthUserData = () => {
     }
 }
 
-export const login = (email, password, rememberMe) => {
-    return (dispatch) => {
+export const login = (email: string, password: string, rememberMe: boolean) => {
+    return (dispatch: any) => {
         authAPI.login(email, password, rememberMe)
             .then(response => {
                 if (response.data.resultCode === 0) {
@@ -54,11 +67,11 @@ export const login = (email, password, rememberMe) => {
 }
 
 export const logout = () => {
-    return (dispatch) => {
+    return (dispatch: any) => {
         authAPI.logout()
             .then(response => {
                 if (response.data.resultCode === 0) {
-                    dispatch(setAuthUserData(null, null, false));
+                    dispatch(setAuthUserData(null, null, null, false));
                 }
             });
     }

@@ -1,4 +1,5 @@
 import { userAPI } from "../api/api";
+import { UsersType } from "./types/type";
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -9,15 +10,17 @@ const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS';
 
 let initialState = {
-    users: [],
+    users: [] as Array<UsersType> ,
     pageSize: 6,
     totalUsersCount: 20,
     currentPage: 1,
     isFetching: true,
-    followingInProgress: []
+    followingInProgress: [] as Array<number> // Array of numbers
 };
 
-const usersReducer = (state = initialState, action) => {
+export type UserType = typeof initialState;
+
+const usersReducer = (state = initialState, action: any): UserType => {
     switch (action.type) {
         case FOLLOW: {
             return {
@@ -65,17 +68,48 @@ const usersReducer = (state = initialState, action) => {
     }
 };
 
-export const followSuccess = (userId) => ({ type: FOLLOW, userId });
-export const unfollowSuccess = (userId) =>
-    ({ type: UNFOLLOW, userId });
-export const setUsers = (users) => ({ type: SET_USERS, users });
-export const setCurrentPage = (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage });
-export const setTotalUsersCount = (totalUsersCount) => ({ type: SET_TOTAL_USERS_COUNT, count: totalUsersCount });
-export const toggleIsFetching = (isFetching) => ({ type: TOGGLE_IS_FETCHING, isFetching });
-export const toggleFollowingProgress = (isFetching, userId) => ({ type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId });
+type FollowSuccessType = {
+    type: typeof FOLLOW
+    userId: number
+}
+export const followSuccess = (userId: number): FollowSuccessType => ({ type: FOLLOW, userId })
+type UnfollowSuccessType = {
+    type: typeof UNFOLLOW
+    userId: number
+}
+export const unfollowSuccess = (userId: number): UnfollowSuccessType =>
+    ({ type: UNFOLLOW, userId })
+type SetUsersType = {
+    type: typeof SET_USERS
+    users: UsersType
+}
+export const setUsers = (users: UsersType): SetUsersType => ({ type: SET_USERS, users })
+type SetCurrentPageType = {
+    type: typeof SET_CURRENT_PAGE
+    currentPage: number
+}
+export const setCurrentPage = (currentPage: number): SetCurrentPageType => ({ type: SET_CURRENT_PAGE, currentPage })
+type SetTotalUsersCountType = {
+    type: typeof SET_TOTAL_USERS_COUNT
+    count: number
+}
+export const setTotalUsersCount = (totalUsersCount: number): SetTotalUsersCountType => ({ type: SET_TOTAL_USERS_COUNT, count: totalUsersCount })
+type ToggleIsFetchingType = {
+    type: typeof TOGGLE_IS_FETCHING
+    isFetching: boolean
+}
+export const toggleIsFetching = (isFetching: boolean): ToggleIsFetchingType => ({ type: TOGGLE_IS_FETCHING, isFetching })
+type ToggleFollowingProgressType = {
+    type: typeof TOGGLE_IS_FOLLOWING_PROGRESS
+    isFetching: boolean
+    userId: number
+}
+export const toggleFollowingProgress = (isFetching: boolean, userId: number): ToggleFollowingProgressType => 
+({ type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId });
 
-export const requestUsers = (page, pageSize) => { // THUNKCREATOR
-    return (dispatch) => {
+//THUNK CREATORS
+export const requestUsers = (page: number, pageSize: number) => { 
+    return (dispatch: any) => {
         dispatch(toggleIsFetching(true));
         dispatch(setCurrentPage(page));
 
@@ -86,9 +120,8 @@ export const requestUsers = (page, pageSize) => { // THUNKCREATOR
         });
     }
 }
-
-export const follow = (userId) => { // THUNKCREATOR
-    return (dispatch) => {
+export const follow = (userId: number) => { 
+    return (dispatch: any) => {
         dispatch(toggleFollowingProgress(true, userId));
         userAPI.follow(userId).then(response => {
             if (response.data.resultCode === 0) {
@@ -97,9 +130,8 @@ export const follow = (userId) => { // THUNKCREATOR
         })
     }
 }
-
-export const unfollow = (userId) => { // THUNKCREATOR
-    return (dispatch) => {
+export const unfollow = (userId: number) => { 
+    return (dispatch: any) => {
         dispatch.toggleFollowingProgress(true, userId);
         userAPI.unfollow(userId).then(response => {
             if (response.data.resultCode === 0) {
