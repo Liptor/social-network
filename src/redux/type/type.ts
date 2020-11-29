@@ -14,3 +14,6 @@ export type DialogsDataType = {
   name: string
 }
 
+export type RootState = {
+  isOn: boolean
+} 

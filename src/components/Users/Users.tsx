@@ -3,8 +3,21 @@ import styles from "./users.module.css";
 import userPhoto from "./../../assets/Images/avat-01-512.webp";
 import { NavLink } from "react-router-dom";
 import Paginator from "./Paginator/Paginator";
+import { UsersType } from "../../redux/type/type";
 
-const Users = (props) => {
+type PropsType = {
+  totalUsersCount: number,
+  pageSize: number,
+  currentPage: number,
+  onPageChanged: (pageNumber: number) => void,
+  users: Array<UsersType>,
+  followingInProgress: Array<number>,
+  follow: (userId: number) => void,
+  unfollow: (userId: number) => void
+}
+
+const Users: React.FC<PropsType> = ({ currentPage, totalUsersCount, pageSize,
+  onPageChanged, users, ...props }) => {
   let unfollowButton = (user) => (
     <button
       disabled={props.followingInProgress.some((id) => id === user.id)}
