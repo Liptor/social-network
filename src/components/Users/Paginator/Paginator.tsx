@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import styles from "./paginator.module.css";
+import React, { useState } from "react"
+import styles from "./paginator.module.css"
 
 type PropsType = {
   totalUsersCount: number,

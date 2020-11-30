@@ -9,31 +9,33 @@ type PropsType = {
   totalUsersCount: number,
   pageSize: number,
   currentPage: number,
+  user: number,
   onPageChanged: (pageNumber: number) => void,
   users: Array<UsersType>,
   followingInProgress: Array<number>,
-  follow: (userId: number) => void,
-  unfollow: (userId: number) => void
+  follow: (user: number) => void,
+  unfollow: (user: number) => void,
 }
 
-const Users: React.FC<PropsType> = ({ currentPage, totalUsersCount, pageSize,
-  onPageChanged, users, ...props }) => {
-  let unfollowButton = (user) => (
+const Users: React.FC<PropsType> = ({ currentPage, totalUsersCount, pageSize, 
+  onPageChanged, users, follow, unfollow, followingInProgress, ...props }) => {
+
+  let unfollowButton = (user: number) => (
     <button
-      disabled={props.followingInProgress.some((id) => id === user.id)}
+      disabled={followingInProgress.some((id: number) => id === user.id)}
       onClick={() => {
-        props.unfollow(user.id);
+        unfollow(user.id);
       }}
     >
       Unfollow
     </button>
   );
 
-  let followButton = (user) => (
+  let followButton = (user: number) => (
     <button
-      disabled={props.followingInProgress.some((id) => id === user.id)}
+      disabled={followingInProgress.some((id: number) => id === user.id)}
       onClick={() => {
-        props.follow(user.id);
+        follow(user.id);
       }}
     >
       Follow
@@ -44,14 +46,14 @@ const Users: React.FC<PropsType> = ({ currentPage, totalUsersCount, pageSize,
     <div>
       <>
         <Paginator
-          totalUsersCount={props.totalUsersCount}
-          pageSize={props.pageSize}
-          currentPage={props.currentPage}
-          onPageChanged={props.onPageChanged}
+          totalUsersCount={totalUsersCount}
+          pageSize={pageSize}
+          currentPage={currentPage}
+          onPageChanged={onPageChanged}
         />
       </>
       <div className={styles.userSection}>
-        {props.users.map((user) => (
+        {users.map((user) => (
           <div key={user.id}>
             <span>
               <div>
