@@ -13,11 +13,11 @@ type PropsType = {
   onPageChanged: (pageNumber: number) => void,
   users: Array<UsersType>,
   followingInProgress: Array<number>,
-  follow: (user: number) => void,
-  unfollow: (user: number) => void,
+  follow: (number: number) => void,
+  unfollow: (number: number) => void
 }
 
-const Users: React.FC<PropsType> = ({ currentPage, totalUsersCount, pageSize, 
+const Users: React.FC<PropsType> = ({ currentPage, totalUsersCount, pageSize,
   onPageChanged, users, follow, unfollow, followingInProgress, ...props }) => {
 
   let unfollowButton = (user: number) => (
@@ -67,7 +67,7 @@ const Users: React.FC<PropsType> = ({ currentPage, totalUsersCount, pageSize,
                 </NavLink>
               </div>
               <div>
-                {user.follow ? unfollowButton(user) : followButton(user)}
+                {user.followed ? unfollowButton(user) : followButton(user)}
               </div>
             </span>
             <span>
