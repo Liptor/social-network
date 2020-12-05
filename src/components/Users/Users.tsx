@@ -1,30 +1,43 @@
-import React from "react";
+import React, { Attributes, ImgHTMLAttributes } from "react";
 import styles from "./users.module.css";
 import userPhoto from "./../../assets/Images/avat-01-512.webp";
 import { NavLink } from "react-router-dom";
 import Paginator from "./Paginator/Paginator";
-import { UsersType } from "../../redux/type/type";
 
 type PropsType = {
-  totalUsersCount: number,
-  pageSize: number,
-  currentPage: number,
-  user: number,
-  onPageChanged: (pageNumber: number) => void,
-  users: Array<UsersType>,
-  followingInProgress: Array<number>,
-  follow: (number: number) => void,
-  unfollow: (number: number) => void
-}
+  totalUsersCount: number;
+  photos: string | null;
+  pageSize: number;
+  currentPage: number;
+  user: number;
+  users: Array<PropsType>;
+  onPageChanged: (pageNumber: number) => void;
+  followingInProgress: Array<number>;
+  follow: (number: number) => void;
+  unfollow: (number: number) => void;
+  id: number;
+  name: string;
+  status: string;
+  key: Attributes;
+  src: ImgHTMLAttributes
+};
 
-const Users: React.FC<PropsType> = ({ currentPage, totalUsersCount, pageSize,
-  onPageChanged, users, follow, unfollow, followingInProgress, ...props }) => {
-
+const Users: React.FC<PropsType> = ({
+  currentPage,
+  totalUsersCount,
+  pageSize,
+  onPageChanged,
+  users,
+  follow,
+  unfollow,
+  followingInProgress,
+  ...props
+}) => {
   let unfollowButton = (user: number) => (
     <button
-      disabled={followingInProgress.some((id: number) => id === user.id)}
+      disabled={followingInProgress.some((id: number) => id === user)}
       onClick={() => {
-        unfollow(user.id);
+        unfollow(user);
       }}
     >
       Unfollow
@@ -33,9 +46,9 @@ const Users: React.FC<PropsType> = ({ currentPage, totalUsersCount, pageSize,
 
   let followButton = (user: number) => (
     <button
-      disabled={followingInProgress.some((id: number) => id === user.id)}
+      disabled={followingInProgress.some((id: number) => id === user)}
       onClick={() => {
-        follow(user.id);
+        follow(user);
       }}
     >
       Follow
@@ -54,20 +67,21 @@ const Users: React.FC<PropsType> = ({ currentPage, totalUsersCount, pageSize,
       </>
       <div className={styles.userSection}>
         {users.map((user) => (
-          <div key={user.id}>
+          <div key={user}>
             <span>
               <div>
-                <NavLink to={"./profile/" + user.id}>
+                <NavLink to={"./profile/" + user}>
                   <img
+                    alt="profilePhoto"
                     src={
-                      user.photos.small != null ? user.photos.small : userPhoto
+                      !user.photos.small != null ? user.photos.small : userPhoto
                     }
                     className={styles.userPhoto}
                   />
                 </NavLink>
               </div>
               <div>
-                {user.followed ? unfollowButton(user) : followButton(user)}
+                {user.follow ? unfollowButton(user.id) : followButton(user.id)}
               </div>
             </span>
             <span>

@@ -2,8 +2,17 @@ import React from "react";
 import style from "./Profile.module.css";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
+import ProfileType from "../../redux/profile-reducer";
 
-const Profile = (props) => {
+type PropsType = {
+  owner: boolean;
+  profile: typeof ProfileType;
+  status: string;
+  updateStatus: () => void;
+  savePhoto: () => void;
+};
+
+const Profile: React.FC<PropsType> = (props) => {
   return (
     <div className={style.profile}>
       <ProfileInfo

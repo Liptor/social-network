@@ -1,3 +1,14 @@
+import {ContactsType} from '../profile-reducer'
+
+export type ProfileType = {
+  userId: number
+  lookingForAJob: boolean
+  lookingForAJobDescription: string
+  fullName: string
+  contacts: ContactsType
+  photos: PhotosType
+}
+
 export type PhotosType = {
   small: string | null
   large: string | null

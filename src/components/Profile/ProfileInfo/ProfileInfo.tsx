@@ -1,11 +1,27 @@
 /* /* eslint-disable jsx-a11y/alt-text */
-import React from "react";
+import React, { MouseEvent } from "react";
 import s from "./ProfileInfo.module.css";
 import Preloader from "../../common/Preloader/Preloader";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import userPhoto from "../../../assets/Images/avat-01-512.webp";
+import { ProfileType } from "../../../redux/type/type";
+import { ContactsType } from "../../../redux/profile-reducer";
 
-const ProfileInfo = ({ profile, isOwner, savePhoto }) => {
+type ProfileInfoType = {
+  profile: typeof ProfileType;
+  status: string;
+  updateStatus: () => void;
+  isOwner: boolean;
+  savePhoto: () => void;
+  e: MouseEvent<HTMLButtonElement>;
+  contacts: ContactsType
+};
+
+const ProfileInfo: React.FC<ProfileInfoType> = ({
+  profile,
+  isOwner,
+  savePhoto,
+}) => {
   if (!profile) {
     return <Preloader />;
   }
@@ -23,17 +39,21 @@ const ProfileInfo = ({ profile, isOwner, savePhoto }) => {
         {isOwner && <input type={"file"} onChange={mainPhotoSelected} />}
       </div>
       <div>
-        <ProfileData profile={profile}  />
+        <ProfileData profile={profile} />
       </div>
     </div>
   );
 };
 
-const ProfileData = ({ profile, status, updateStatus }) => {
+const ProfileData: React.FC<ProfileInfoType> = ({
+  profile,
+  status,
+  updateStatus,
+}) => {
   return (
     <div>
       <div className={s.lookingForJob}>
-        <b>Looking for a job</b>: {profile.lookingForJob ? "yes" : "no"}
+        <b>Looking for a job</b>: {profile.lookingForAJob ? "yes" : "no"}
       </div>
       <div className={s.aboutProfile}>
         <ProfileStatusWithHooks status={status} updateStatus={updateStatus} />
@@ -56,7 +76,12 @@ const ProfileData = ({ profile, status, updateStatus }) => {
   );
 };
 
-const Contact = ({ contactTitle, contactValue }) => {
+type ContactType = {
+  contactTitle: string;
+  contactValue: string;
+};
+
+const Contact: React.FC<ContactType> = ({ contactTitle, contactValue }) => {
   return (
     <div>
       <b>{contactTitle}:</b> {contactValue}

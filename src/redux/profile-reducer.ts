@@ -13,7 +13,7 @@ type PostsDataType = {
   message: string
 }
 
-type ContactsType = {
+export type ContactsType = {
   github: string
   vk: string
   facebook: string
@@ -24,14 +24,6 @@ type ContactsType = {
   mainLink: string
 }
 
-type ProfileType = {
-  userId: number
-  lookingForAJob: boolean
-  lookingForAJobDescription: string
-  fullName: string
-  contacts: ContactsType
-  photos: PhotosType
-}
 
 let initialState = {
   postsData: [

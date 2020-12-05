@@ -1,14 +1,23 @@
 import React from "react";
-import Profile from "./Profile";
+import Profile from "./Profile.tsx";
 import { connect } from "react-redux";
 import {
   getUserProfile,
   getStatus,
   updateStatus,
   savePhoto,
+  ProfileType,
 } from "../../redux/profile-reducer";
 import { withRouter } from "react-router-dom";
 import { compose } from "redux";
+
+type PropsType = {
+  owner: number;
+  getUserProfile: () => void;
+  getStatus: () => void;
+  profile: typeof ProfileType,
+  
+};
 
 class ProfileContainer extends React.Component {
   refreshData() {
