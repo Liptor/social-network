@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import Profile from "./Profile.tsx";
 import { connect } from "react-redux";
 import {
@@ -11,15 +11,16 @@ import {
 import { withRouter } from "react-router-dom";
 import { compose } from "redux";
 
-type PropsType = {
+interface PropsType {
   owner: number;
   getUserProfile: () => void;
   getStatus: () => void;
-  profile: typeof ProfileType,
-  
+  profile: typeof ProfileType;
+  history: any;
+  userId: number;
 };
 
-class ProfileContainer extends React.Component {
+class ProfileContainer extends Component<PropsType> {
   refreshData() {
     let userId = this.props.match.params.userId;
     if (!userId) {
