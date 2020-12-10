@@ -1,10 +1,9 @@
-/* /* eslint-disable jsx-a11y/alt-text */
 import React, { MouseEvent } from "react";
 import s from "./ProfileInfo.module.css";
 import Preloader from "../../common/Preloader/Preloader";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import userPhoto from "../../../assets/Images/avat-01-512.webp";
-import { ProfileType } from "../../../redux/type/type";
+import ProfileType from "../../../redux/type/type";
 import { ContactsType } from "../../../redux/profile-reducer";
 
 type ProfileInfoType = {
@@ -14,7 +13,7 @@ type ProfileInfoType = {
   isOwner: boolean;
   savePhoto: () => void;
   e: MouseEvent<HTMLButtonElement>;
-  contacts: ContactsType
+  contacts: ContactsType;
 };
 
 const ProfileInfo: React.FC<ProfileInfoType> = ({
@@ -26,7 +25,7 @@ const ProfileInfo: React.FC<ProfileInfoType> = ({
     return <Preloader />;
   }
 
-  const mainPhotoSelected = (e) => {
+  const mainPhotoSelected = (e: React.ChangeEvent<HTMLButtonElement>): void => {
     if (e.target.files.length) {
       savePhoto(e.target.files[0]);
     }

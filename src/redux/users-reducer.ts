@@ -1,7 +1,7 @@
 import { Dispatch } from "react";
 import { userAPI } from "../api/api";
 import { AppStateType } from "./redux-store";
-import { PhotosType } from "./type/type";
+import { PhotosType, UsersType } from "./type/type";
 import { ThunkAction } from 'redux-thunk'
 
 const FOLLOW = 'FOLLOW';
@@ -12,24 +12,13 @@ const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
 const TOGGLE_IS_FETCHING = 'TOGGLE_IS_FETCHING';
 const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS';
 
-type UsersType = {
-    id: number
-    name: string
-    status: string
-    photos: PhotosType
-    followed: boolean
-}
-type FollowingInProgressType = {
-    userId: number
-}
-
 let initialState = {
     users: [] as Array<UsersType>,
     pageSize: 6,
     totalUsersCount: 20,
     currentPage: 1,
     isFetching: true,
-    followingInProgress: [] as Array<FollowingInProgressType>
+    followingInProgress: [] as Array<number>
 };
 
 type InitialStateType = typeof initialState
@@ -90,8 +79,8 @@ export const followSuccess = (userId: number): FollowSuccessType => ({ type: FOL
 type UnfollowSuccessType = { type: typeof UNFOLLOW, userId: number }
 export const unfollowSuccess = (userId: number): UnfollowSuccessType =>
     ({ type: UNFOLLOW, userId })
-type SetUsersType = { type: typeof SET_USERS, users: UsersType }
-export const setUsers = (users: UsersType): SetUsersType => ({ type: SET_USERS, users })
+type SetUsersType = { type: typeof SET_USERS, users: Array<UsersType> }
+export const setUsers = (users: Array<UsersType>): SetUsersType => ({ type: SET_USERS, users })
 type SetCurrentPageType = { type: typeof SET_CURRENT_PAGE, currentPage: number }
 export const setCurrentPage = (currentPage: number): SetCurrentPageType => ({ type: SET_CURRENT_PAGE, currentPage })
 type SetTotalUsersCountType = { type: typeof SET_TOTAL_USERS_COUNT, count: number }
@@ -132,7 +121,6 @@ export const unfollow = (userId: number): ThunkType => async dispatch => { // TH
             dispatch(unfollowSuccess(userId));
         }
     })
-}
 }
 
 export default usersReducer;

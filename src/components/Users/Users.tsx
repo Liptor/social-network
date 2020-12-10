@@ -3,6 +3,7 @@ import styles from "./users.module.css";
 import userPhoto from "./../../assets/Images/avat-01-512.webp";
 import { NavLink } from "react-router-dom";
 import Paginator from "./Paginator/Paginator";
+import { UsersType } from "../../redux/type/type";
 
 type PropsType = {
   totalUsersCount: number;
@@ -10,7 +11,7 @@ type PropsType = {
   pageSize: number;
   currentPage: number;
   user: number;
-  users: Array<PropsType>;
+  users: Array<UsersType>;
   onPageChanged: (pageNumber: number) => void;
   followingInProgress: Array<number>;
   follow: (number: number) => void;
@@ -19,8 +20,7 @@ type PropsType = {
   name: string;
   status: string;
   key: Attributes;
-  src: ImgHTMLAttributes
-};
+}
 
 const Users: React.FC<PropsType> = ({
   currentPage,
