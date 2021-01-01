@@ -68,7 +68,7 @@ const Users: React.FC<PropsType> = ({
                   <img
                     alt="profilePhoto"
                     src={
-                      !user.photos.small != null ? user.photos.small : userPhoto
+                      user.photos.small != null ? user.photos.small : userPhoto
                     }
                     className={styles.userPhoto}
                   />

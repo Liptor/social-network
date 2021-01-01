@@ -24,7 +24,6 @@ export type ContactsType = {
   mainLink: string
 }
 
-
 let initialState = {
   postsData: [
     { id: 1, message: "Hi, how are you?" },

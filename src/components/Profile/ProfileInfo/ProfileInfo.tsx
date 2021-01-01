@@ -1,9 +1,9 @@
 import React from "react";
 import s from "./ProfileInfo.module.css";
 import Preloader from "../../common/Preloader/Preloader";
-import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import userPhoto from "../../../assets/Images/avat-01-512.webp";
 import { ProfileType } from "../../../redux/type/type";
+import ProfileStatusWithHooks from './ProfileStatusWithHooks';
 
 type ProfileInfoType = {
   profile: ProfileType;
@@ -12,7 +12,6 @@ type ProfileInfoType = {
   isOwner: string;
   savePhoto: (e: any) => void;
 };
-
 
 interface HTMLInputEvent extends Event {
   target: HTMLInputElement & EventTarget;
@@ -45,7 +44,12 @@ const ProfileInfo: React.FC<ProfileInfoType> = ({
         {isOwner && <input type={"file"} onChange={() => mainPhotoSelected} />}
       </div>
       <div>
-        <ProfileData profile={profile} isOwner={isOwner} savePhoto={savePhoto} {...props} />
+        <ProfileData
+          profile={profile}
+          isOwner={isOwner}
+          savePhoto={savePhoto}
+          {...props}
+        />
       </div>
     </div>
   );
