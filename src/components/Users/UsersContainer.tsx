@@ -39,7 +39,7 @@ type PropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType
 
 const UsersContainer = (props: PropsType) => {
   useEffect(() => {
-    getUsers(props.users)
+    props.getUsers(props.currentPage, props.pageSize)
   });
 
   const onPageChanged = (pageNumber: number) => {

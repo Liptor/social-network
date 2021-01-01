@@ -1,5 +1,5 @@
 import { Action } from "redux";
-import  ThunkAction  from "redux-thunk";
+import { ThunkAction } from "redux-thunk";
 import { profileAPI } from "../api/api";
 import { PhotosType, ProfileType, RootState } from "./type/type";
 
@@ -8,7 +8,7 @@ const SET_USER_PROFILE = "SET_USER_PROFILE";
 const SET_STATUS = "SET_STATUS";
 const SET_PHOTO = "SET_PHOTO";
 
-type PostsDataType = {
+export type PostsDataType = {
   id: number
   message: string
 }

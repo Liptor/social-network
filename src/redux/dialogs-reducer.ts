@@ -27,10 +27,11 @@ export type InitialStateType = typeof initialState
 const dialogsReducer = (state = initialState, action: any): InitialStateType => {
     switch (action.type) {
         case ADD_MESS: {
+            let id = action.id
             let message = action.message
             return {
                 ...state,
-                messages: [...state.messages, { message }] 
+                messages: [...state.messages, { id, message }] 
             }
         };
         default:

@@ -1,4 +1,4 @@
-import React, { Attributes, ImgHTMLAttributes } from "react";
+import React from "react";
 import styles from "./users.module.css";
 import userPhoto from "./../../assets/Images/avat-01-512.webp";
 import { NavLink } from "react-router-dom";
@@ -60,11 +60,11 @@ const Users: React.FC<PropsType> = ({
         />
       </>
       <div className={styles.userSection}>
-        {users.map((user) => (
-          <div key={user}>
+        {users.map((user: any) => (
+          <div key={user.id}>
             <span>
               <div>
-                <NavLink to={"./profile/" + user}>
+                <NavLink to={"./profile/" + user.id}>
                   <img
                     alt="profilePhoto"
                     src={
@@ -75,7 +75,7 @@ const Users: React.FC<PropsType> = ({
                 </NavLink>
               </div>
               <div>
-                {users.followed ? unfollowButton(user.id) : followButton(user.id)}
+                {user.followed ? unfollowButton(user.id) : followButton(user.id)}
               </div>
             </span>
             <span>

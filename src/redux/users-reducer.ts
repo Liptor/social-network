@@ -1,7 +1,7 @@
 import { Dispatch } from "react";
 import { userAPI } from "../api/api";
 import { AppStateType } from "./redux-store";
-import { PhotosType, UsersType } from "./type/type";
+import { UsersType } from "./type/type";
 import { ThunkAction } from 'redux-thunk'
 
 const FOLLOW = 'FOLLOW';
@@ -115,7 +115,7 @@ export const follow = (userId: number): ThunkType => async dispatch => {
 }
 
 export const unfollow = (userId: number): ThunkType => async dispatch => { // THUNKCREATOR
-    dispatch.toggleFollowingProgress(true, userId);
+    dispatch(toggleFollowingProgress(true, userId));
     await userAPI.unfollow(userId).then(response => {
         if (response.data.resultCode === 0) {
             dispatch(unfollowSuccess(userId));

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useState } from "react";
 import Profile from "./Profile";
 import { connect } from "react-redux";
 import {
@@ -30,9 +30,11 @@ interface PropsType extends RouteComponentProps<RouterProps> {
 const ProfileContainer: React.FC<PropsType> = (props) => {
   const [userId, setUserId] = useState("");
 
-  const refreshData = useCallback(() => {
-    setUserId(props.match.params.userId);
+  const refreshData = () => {
     if (!userId) {
+    setUserId(props.match.params.userId)
+  }
+    if (userId) {
       setUserId(props.authorizedUserId);
       if (!userId) {
         props.history.push("/login");
@@ -40,14 +42,11 @@ const ProfileContainer: React.FC<PropsType> = (props) => {
     }
     props.getUserProfile(userId);
     props.getStatus(userId);
-  }, [props, userId]);
-
-  useEffect(() => {
-    refreshData();
-    if (props.match.params.userId != userId) {
-      refreshData();
-    }
-  }, [props.match.params.userId, userId, refreshData]);
+  }
+  
+  if (props.match.params.userId !== userId) {
+        refreshData();
+  }
 
   return (
     <Profile
