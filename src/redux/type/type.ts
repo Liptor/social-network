@@ -5,7 +5,7 @@ export type ProfileType = {
   lookingForAJob: boolean
   lookingForAJobDescription: string
   fullName: string
-  contacts: ContactsType
+  contacts: Array<ContactsType>
   photos: PhotosType
 }
 

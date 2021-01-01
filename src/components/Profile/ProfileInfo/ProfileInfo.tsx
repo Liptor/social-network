@@ -1,32 +1,36 @@
-import React, { MouseEvent } from "react";
+import React from "react";
 import s from "./ProfileInfo.module.css";
 import Preloader from "../../common/Preloader/Preloader";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import userPhoto from "../../../assets/Images/avat-01-512.webp";
 import { ProfileType } from "../../../redux/type/type";
-import { ContactsType } from "../../../redux/profile-reducer";
 
 type ProfileInfoType = {
   profile: ProfileType;
   status: string;
   updateStatus: () => void;
-  isOwner: boolean;
-  savePhoto: () => void;
-  contacts: ContactsType;
+  isOwner: string;
+  savePhoto: (e: any) => void;
 };
+
+
+interface HTMLInputEvent extends Event {
+  target: HTMLInputElement & EventTarget;
+}
 
 const ProfileInfo: React.FC<ProfileInfoType> = ({
   profile,
   isOwner,
   savePhoto,
+  ...props
 }) => {
   if (!profile) {
     return <Preloader />;
   }
 
-  const mainPhotoSelected = (e: React.ChangeEvent<HTMLButtonElement>): void => {
-    if (e.target.files.length) {
-      savePhoto(e.target.files[0]);
+  const mainPhotoSelected = (e: HTMLInputEvent): void => {
+    if (e.target.files!.length) {
+      savePhoto(e.target.files![0]);
     }
   };
 
@@ -38,10 +42,10 @@ const ProfileInfo: React.FC<ProfileInfoType> = ({
           src={profile.photos.large || userPhoto}
           className={s.mainPhoto}
         />
-        {isOwner && <input type={"file"} onChange={mainPhotoSelected} />}
+        {isOwner && <input type={"file"} onChange={() => mainPhotoSelected} />}
       </div>
       <div>
-        <ProfileData profile={profile} />
+        <ProfileData profile={profile} isOwner={isOwner} savePhoto={savePhoto} {...props} />
       </div>
     </div>
   );
@@ -63,7 +67,7 @@ const ProfileData: React.FC<ProfileInfoType> = ({
       <div className={s.socialNetworks}>
         <b>Contacts:</b>
         <div className={s.contact}>
-          {Object.keys(profile.contacts).map((key) => {
+          {Object.keys(profile.contacts).map((key: any) => {
             return (
               <Contact
                 key={key}
@@ -80,7 +84,7 @@ const ProfileData: React.FC<ProfileInfoType> = ({
 
 type ContactType = {
   contactTitle: string;
-  contactValue: string;
+  contactValue: any;
 };
 
 const Contact: React.FC<ContactType> = ({ contactTitle, contactValue }) => {

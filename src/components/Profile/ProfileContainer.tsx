@@ -16,12 +16,15 @@ type RouterProps = {
 };
 
 interface PropsType extends RouteComponentProps<RouterProps> {
-  owner: number;
+  owner: string;
   getUserProfile: (userId: string) => void;
   getStatus: (userId: string) => void;
   profile: ProfileType;
   history: any;
   authorizedUserId: string;
+  status: string;
+  updateStatus: () => void;
+  savePhoto: () => void;
 }
 
 const ProfileContainer: React.FC<PropsType> = (props) => {
@@ -48,12 +51,11 @@ const ProfileContainer: React.FC<PropsType> = (props) => {
 
   return (
     <Profile
-      owner={!props.match.params.userId}
+      owner={props.match.params.userId}
       profile={props.profile}
       status={props.status}
       updateStatus={props.updateStatus}
       savePhoto={props.savePhoto}
-      {...props}
     />
   );
 };
