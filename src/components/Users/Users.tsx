@@ -7,19 +7,13 @@ import { UsersType } from "../../redux/type/type";
 
 type PropsType = {
   totalUsersCount: number;
-  photos: string | null;
   pageSize: number;
   currentPage: number;
-  user: number;
   users: Array<UsersType>;
   onPageChanged: (pageNumber: number) => void;
   followingInProgress: Array<number>;
   follow: (number: number) => void;
   unfollow: (number: number) => void;
-  id: number;
-  name: string;
-  status: string;
-  key: Attributes;
 }
 
 const Users: React.FC<PropsType> = ({
@@ -81,7 +75,7 @@ const Users: React.FC<PropsType> = ({
                 </NavLink>
               </div>
               <div>
-                {user.follow ? unfollowButton(user.id) : followButton(user.id)}
+                {users.followed ? unfollowButton(user.id) : followButton(user.id)}
               </div>
             </span>
             <span>

@@ -1,7 +1,7 @@
 import { Action } from "redux";
-import thunk, { ThunkAction } from "redux-thunk";
+import  ThunkAction  from "redux-thunk";
 import { profileAPI } from "../api/api";
-import { PhotosType, RootState } from "./type/type";
+import { PhotosType, ProfileType, RootState } from "./type/type";
 
 const ADD_POST = "ADD-POST";
 const SET_USER_PROFILE = "SET_USER_PROFILE";

@@ -2,13 +2,13 @@ import React from "react";
 import style from "./Profile.module.css";
 import ProfileInfo from "./ProfileInfo/ProfileInfo";
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
-import ProfileType from "../../redux/profile-reducer";
+import { ProfileType } from "../../redux/type/type";
 
 type PropsType = {
-  owner: boolean;
-  profile: typeof ProfileType;
+  profile: ProfileType;
   status: string;
   updateStatus: () => void;
+  owner: boolean;
   savePhoto: () => void;
 };
 

@@ -1,63 +1,64 @@
-import React, { Component } from "react";
-import Profile from "./Profile.tsx";
+import React, { useEffect, useState, useCallback } from "react";
+import Profile from "./Profile";
 import { connect } from "react-redux";
 import {
   getUserProfile,
   getStatus,
   updateStatus,
   savePhoto,
-  ProfileType,
 } from "../../redux/profile-reducer";
-import { withRouter } from "react-router-dom";
+import { ProfileType } from "../../redux/type/type";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 import { compose } from "redux";
 
-interface PropsType {
-  owner: number;
-  getUserProfile: () => void;
-  getStatus: () => void;
-  profile: typeof ProfileType;
-  history: any;
-  userId: number;
+type RouterProps = {
+  userId: string;
 };
 
-class ProfileContainer extends Component<PropsType> {
-  refreshData() {
-    let userId = this.props.match.params.userId;
-    if (!userId) {
-      userId = this.props.authorizedUserId;
-      if (!userId) {
-        this.props.history.push("/login");
-      }
-    }
-    this.props.getUserProfile(userId);
-    this.props.getStatus(userId);
-  }
-
-  componentDidMount() {
-    this.refreshData();
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.match.params.userId != prevProps.match.params.userId) {
-      this.refreshData();
-    }
-  }
-
-  render() {
-    return (
-      <Profile
-        {...this.props}
-        owner={!this.props.match.params.userId}
-        profile={this.props.profile}
-        status={this.props.status}
-        updateStatus={this.props.updateStatus}
-        savePhoto={this.props.savePhoto}
-      />
-    );
-  }
+interface PropsType extends RouteComponentProps<RouterProps> {
+  owner: number;
+  getUserProfile: (userId: string) => void;
+  getStatus: (userId: string) => void;
+  profile: ProfileType;
+  history: any;
+  authorizedUserId: string;
 }
 
-let mapStateToProps = (state) => ({
+const ProfileContainer: React.FC<PropsType> = (props) => {
+  const [userId, setUserId] = useState("");
+
+  const refreshData = useCallback(() => {
+    setUserId(props.match.params.userId);
+    if (!userId) {
+      setUserId(props.authorizedUserId);
+      if (!userId) {
+        props.history.push("/login");
+      }
+    }
+    props.getUserProfile(userId);
+    props.getStatus(userId);
+  }, [props, userId]);
+
+  useEffect(() => {
+    refreshData();
+    if (props.match.params.userId != userId) {
+      refreshData();
+    }
+  }, [props.match.params.userId, userId, refreshData]);
+
+  return (
+    <Profile
+      owner={!props.match.params.userId}
+      profile={props.profile}
+      status={props.status}
+      updateStatus={props.updateStatus}
+      savePhoto={props.savePhoto}
+      {...props}
+    />
+  );
+};
+
+let mapStateToProps = (state: any) => ({
   profile: state.profilePage.profile,
   status: state.profilePage.status,
   authorizedUserId: state.auth.userId,

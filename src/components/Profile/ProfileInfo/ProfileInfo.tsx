@@ -3,16 +3,15 @@ import s from "./ProfileInfo.module.css";
 import Preloader from "../../common/Preloader/Preloader";
 import ProfileStatusWithHooks from "./ProfileStatusWithHooks";
 import userPhoto from "../../../assets/Images/avat-01-512.webp";
-import ProfileType from "../../../redux/type/type";
+import { ProfileType } from "../../../redux/type/type";
 import { ContactsType } from "../../../redux/profile-reducer";
 
 type ProfileInfoType = {
-  profile: typeof ProfileType;
+  profile: ProfileType;
   status: string;
   updateStatus: () => void;
   isOwner: boolean;
   savePhoto: () => void;
-  e: MouseEvent<HTMLButtonElement>;
   contacts: ContactsType;
 };
 
@@ -34,7 +33,11 @@ const ProfileInfo: React.FC<ProfileInfoType> = ({
   return (
     <div className={s.descriptionBlock}>
       <div>
-        <img src={profile.photos.large || userPhoto} className={s.mainPhoto} />
+        <img
+          alt={`profileImage`}
+          src={profile.photos.large || userPhoto}
+          className={s.mainPhoto}
+        />
         {isOwner && <input type={"file"} onChange={mainPhotoSelected} />}
       </div>
       <div>
