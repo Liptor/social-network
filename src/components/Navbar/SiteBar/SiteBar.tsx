@@ -2,8 +2,13 @@ import React from "react";
 import s from "./SiteBar.module.css";
 import Friend from "./Friend/Friend";
 
-const SiteBar = (props) => {
-  let friendItem = props.sidebar.friend.map((friendItem) => (
+type SiteBarType = {
+  sitebar: Array<any>;
+};
+
+const SiteBar: React.FC<SiteBarType> = ({ sitebar }) => {
+
+  let friendItem = sitebar.friend.map((friendItem: any) => (
     <Friend key={friendItem.id} name={friendItem.name} id={friendItem.id} />
   ));
 

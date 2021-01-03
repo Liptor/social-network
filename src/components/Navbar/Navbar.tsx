@@ -2,14 +2,17 @@ import React from "react";
 import "./Navbar.module.css";
 import { NavLink } from "react-router-dom";
 import SiteBarContainer from "./SiteBar/SiteBarContainer";
+import { AppStateType } from "../../redux/redux-store";
 
-const Navbar = (props) => {
+type NavbarType = {
+  store: AppStateType;
+};
+
+const Navbar: React.FC<NavbarType> = ({ sidebar }) => {
   return (
     <div className="btn-group-vertical">
       <button type="button" className="btn btn-link">
-        <NavLink to="/profile">
-          Profile
-        </NavLink>
+        <NavLink to="/profile">Profile</NavLink>
       </button>
       <button type="button" className="btn btn-link">
         <NavLink to="/dialogs" type="button">
@@ -36,7 +39,7 @@ const Navbar = (props) => {
           Settings
         </NavLink>
       </button>
-      <SiteBarContainer store={props.store} />
+      <SiteBarContainer sidebar={sidebar} />
     </div>
   );
 };
