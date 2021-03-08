@@ -90,8 +90,8 @@ export const toggleIsFetching = (isFetching: boolean): ToggleIsFetchingType => (
 type ToggleFollowingProgressType = { type: typeof TOGGLE_IS_FOLLOWING_PROGRESS, isFetching: boolean, userId: number }
 export const toggleFollowingProgress = (isFetching: boolean, userId: number): ToggleFollowingProgressType => ({ type: TOGGLE_IS_FOLLOWING_PROGRESS, isFetching, userId });
 
-type GetStateType = () => AppStateType
-type CurrentDispatchType = Dispatch<ActionsTypes>
+// type GetStateType = () => AppStateType
+// type CurrentDispatchType = Dispatch<ActionsTypes>
 type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
 
 export const requestUsers = (page: number, pageSize: number): ThunkType => async dispatch => { // THUNKCREATOR

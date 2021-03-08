@@ -1,14 +1,14 @@
-import React from "react";
-import s from "./SiteBar.module.css";
-import Friend from "./Friend/Friend";
+import React from "react"
+import s from "./SiteBar.module.css"
+import Friend from "./Friend/Friend"
+import { DialogsDataType } from "../../../redux/type/type";
 
-type SiteBarType = {
-  sitebar: Array<any>;
-};
+type PropsType = {
+  friend: DialogsDataType[]
+}
 
-const SiteBar: React.FC<SiteBarType> = ({ sitebar }) => {
-
-  let friendItem = sitebar.friend.map((friendItem: any) => (
+const SiteBar: React.FC<PropsType> = (friend: any) => {
+  let friendItem = friend.map((friendItem: any) => (
     <Friend key={friendItem.id} name={friendItem.name} id={friendItem.id} />
   ));
 

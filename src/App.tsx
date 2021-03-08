@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
-import { RouteComponentProps } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import Navbar from "./components/Navbar/Navbar";
 import News from "./components/News/News";
 import Music from "./components/Music/Music";
 import Settings from "./components/Settings/Settings";
@@ -17,6 +15,7 @@ import { compose } from "redux";
 import { initializeApp } from "./redux/app-reducer";
 import Preloader from "./components/common/Preloader/Preloader";
 import { AppStateType } from "../src/redux/redux-store";
+import NavbarContainer from "./components/Navbar/NavbarContainer";
 
 type AddType = {
   initializeApp: () => void;
@@ -24,7 +23,7 @@ type AddType = {
   store: AppStateType;
 };
 
-const App: React.FC<AddType> = ({ initializeApp, initialized, sidebar }) => {
+const App: React.FC<AddType> = ({ initializeApp, initialized }) => {
   useEffect(() => {
     initializeApp();
   }, [initializeApp]);
@@ -37,10 +36,10 @@ const App: React.FC<AddType> = ({ initializeApp, initialized, sidebar }) => {
     <BrowserRouter>
       <div className="app-wrapper">
         <HeaderContainer />
-        <Navbar sidebar={sidebar} />
         <div className="app-wrapper-content">
+          <Route path="/" component={NavbarContainer} />
           <Route path="/dialogs" component={DialogsContainer} />
-          <Route path="/profile/:userId?" render={() => <ProfileContainer />} />
+          <Route path="/profile/:userId?" component={ProfileContainer} />
           <Route path="/news" component={News} />
           <Route path="/music" component={Music} />
           <Route path="/login" component={LoginPage} />

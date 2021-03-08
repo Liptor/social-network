@@ -8,8 +8,9 @@ import {
   savePhoto,
 } from "../../redux/profile-reducer";
 import { ProfileType } from "../../redux/type/type";
-import { withRouter, RouteComponentProps } from "react-router-dom";
+import { withRouter, RouteComponentProps } from "react-router-dom";  
 import { compose } from "redux";
+import { AppStateType } from "../../redux/redux-store";
 
 type RouterProps = {
   userId: string;
@@ -59,7 +60,7 @@ const ProfileContainer: React.FC<PropsType> = (props) => {
   );
 };
 
-let mapStateToProps = (state: any) => ({
+let mapStateToProps = (state: AppStateType) => ({
   profile: state.profilePage.profile,
   status: state.profilePage.status,
   authorizedUserId: state.auth.userId,

@@ -17,34 +17,34 @@ import { AppStateType } from "../../redux/redux-store";
 import { UsersType } from "../../redux/type/type";
 
 type MapStatePropsType = {
-  currentPage: number;
-  pageSize: number;
-  totalUsersCount: number;
-  isFetching: boolean;
-  followingInProgress: Array<number>;
-  users: Array<UsersType>;
+  currentPage: number,
+  pageSize: number,
+  totalUsersCount: number,
+  isFetching: boolean,
+  followingInProgress: Array<number>,
+  users: Array<UsersType>,
 }
 
 type MapDispatchPropsType = {
-  follow: (userId: number) => void;
-  unfollow: (userId: number) => void;
-  getUsers: (currentPage: number, pageSize: number) => void;
+  follow: (userId: number) => void,
+  unfollow: (userId: number) => void,
+  getUsers: (currentPage: number, pageSize: number) => void,
 }
 
 type OwnPropsType = {
-  pageTitle: string;
+  pageTitle: string,
 }
 
 type PropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType
 
-const UsersContainer = (props: PropsType) => {
+const UsersContainer: React.FC<PropsType> = (props) => {
   useEffect(() => {
     props.getUsers(props.currentPage, props.pageSize)
-  });
+  })
 
   const onPageChanged = (pageNumber: number) => {
-    props.getUsers(pageNumber, props.pageSize);
-  };
+    props.getUsers(pageNumber, props.pageSize)
+  }
 
   return (
     <>
@@ -61,10 +61,10 @@ const UsersContainer = (props: PropsType) => {
         followingInProgress={props.followingInProgress}
       />
     </>
-  )
-}
+  );
+};
 
-let mapStateToProps = (state: AppStateType): MapStatePropsType => {
+let mapStateToProps = (state: AppStateType): MapStatePropsType  => {
   return {
     users: getUsers(state),
     pageSize: getPageSize(state),
@@ -77,13 +77,15 @@ let mapStateToProps = (state: AppStateType): MapStatePropsType => {
 
 export default compose(
   // TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultState
-  connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(
-    mapStateToProps,
+  connect < MapStatePropsType,
+  MapDispatchPropsType,
+  OwnPropsType,
+  AppStateType >
+    (mapStateToProps,
     {
       follow,
       unfollow,
       getUsers: requestUsers,
-    }
-  ),
+    }),
   withAuthRedirect
 )(UsersContainer)
