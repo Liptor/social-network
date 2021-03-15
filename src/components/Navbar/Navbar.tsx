@@ -3,13 +3,13 @@ import "./Navbar.module.css";
 import { NavLink } from "react-router-dom";
 import SiteBar from "./SiteBar/SiteBar";
 import { DialogsDataType } from "../../redux/type/type";
+import { SitebarStateType } from "../../redux/sidebar-reducer";
 
-type PropsType = {
-  friend: DialogsDataType[]
-}
+type NavbarType = {
+  friend: Array<DialogsDataType>;
+};
 
-
-const Navbar: React.FC<PropsType> = (friend: any) => {
+const Navbar: React.FC<NavbarType> = (sidebar: SitebarStateType) => {
   return (
     <div className="btn-group-vertical">
       <button type="button" className="btn btn-link">
@@ -40,7 +40,7 @@ const Navbar: React.FC<PropsType> = (friend: any) => {
           Settings
         </NavLink>
       </button>
-      <SiteBar friend={friend} />
+      <SiteBar friend={sidebar.friend} />
     </div>
   );
 };

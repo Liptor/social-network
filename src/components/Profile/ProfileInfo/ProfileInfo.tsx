@@ -8,7 +8,7 @@ import ProfileStatusWithHooks from './ProfileStatusWithHooks';
 type ProfileInfoType = {
   profile: ProfileType;
   status: string;
-  updateStatus: () => void;
+  updateStatus: (status: string) => void;
   isOwner: string;
   savePhoto: (e: any) => void;
 };

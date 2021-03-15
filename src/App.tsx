@@ -12,18 +12,20 @@ import HeaderContainer from "./components/Header/HeaderContainer";
 import LoginPage from "./components/Login/LoginContainer";
 import { connect } from "react-redux";
 import { compose } from "redux";
-import { initializeApp } from "./redux/app-reducer";
 import Preloader from "./components/common/Preloader/Preloader";
 import { AppStateType } from "../src/redux/redux-store";
-import NavbarContainer from "./components/Navbar/NavbarContainer";
+import { initializeApp } from "./redux/app-reducer";
+import Navbar from './components/Navbar/Navbar';
+import { SitebarStateType } from "./redux/sidebar-reducer";
 
 type AddType = {
   initializeApp: () => void;
   initialized: boolean;
   store: AppStateType;
+  sidebar: SitebarStateType
 };
 
-const App: React.FC<AddType> = ({ initializeApp, initialized }) => {
+const App: React.FC<AddType> = ({ initializeApp, initialized }, sidebar) => {
   useEffect(() => {
     initializeApp();
   }, [initializeApp]);
@@ -36,8 +38,8 @@ const App: React.FC<AddType> = ({ initializeApp, initialized }) => {
     <BrowserRouter>
       <div className="app-wrapper">
         <HeaderContainer />
+        <Navbar sidebar={sidebar} />
         <div className="app-wrapper-content">
-          <Route path="/" component={NavbarContainer} />
           <Route path="/dialogs" component={DialogsContainer} />
           <Route path="/profile/:userId?" component={ProfileContainer} />
           <Route path="/news" component={News} />
@@ -51,10 +53,10 @@ const App: React.FC<AddType> = ({ initializeApp, initialized }) => {
   );
 };
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: AppStateType) => ({
   initialized: state.app.initialized,
-  sidebar: state.app.sidebar,
-});
+  sidebar: state.sidebar
+})
 
 export default compose(
   withRouter,

@@ -13,36 +13,36 @@ import {
   getTotalUsersCount,
   getUsers,
 } from "../../redux/users-selector";
-import { AppStateType } from "../../redux/redux-store";
-import { UsersType } from "../../redux/type/type";
+// import { AppStateType } from "../../redux/redux-store";
+// import { UsersType } from "../../redux/type/type";
 
-type MapStatePropsType = {
-  currentPage: number,
-  pageSize: number,
-  totalUsersCount: number,
-  isFetching: boolean,
-  followingInProgress: Array<number>,
-  users: Array<UsersType>,
-}
+// type MapStatePropsType = {
+//   currentPage: number,
+//   pageSize: number,
+//   totalUsersCount: number,
+//   isFetching: boolean,
+//   followingInProgress: Array<number>,
+//   users: Array<UsersType>,
+// }
 
-type MapDispatchPropsType = {
-  follow: (userId: number) => void,
-  unfollow: (userId: number) => void,
-  getUsers: (currentPage: number, pageSize: number) => void,
-}
+// type MapDispatchPropsType = {
+//   follow: (userId: number) => void,
+//   unfollow: (userId: number) => void,
+//   getUsers: (currentPage: number, pageSize: number) => void,
+// }
 
-type OwnPropsType = {
-  pageTitle: string,
-}
+// type OwnPropsType = {
+//   pageTitle: string,
+// }
 
-type PropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType
+// type PropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType
 
-const UsersContainer: React.FC<PropsType> = (props) => {
+const UsersContainer = (props) => {
   useEffect(() => {
     props.getUsers(props.currentPage, props.pageSize)
   })
 
-  const onPageChanged = (pageNumber: number) => {
+  const onPageChanged = (pageNumber) => {
     props.getUsers(pageNumber, props.pageSize)
   }
 
@@ -64,7 +64,7 @@ const UsersContainer: React.FC<PropsType> = (props) => {
   );
 };
 
-let mapStateToProps = (state: AppStateType): MapStatePropsType  => {
+let mapStateToProps = (state)  => {
   return {
     users: getUsers(state),
     pageSize: getPageSize(state),
@@ -77,10 +77,11 @@ let mapStateToProps = (state: AppStateType): MapStatePropsType  => {
 
 export default compose(
   // TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, State = DefaultState
-  connect < MapStatePropsType,
-  MapDispatchPropsType,
-  OwnPropsType,
-  AppStateType >
+  // < MapStatePropsType,
+  // MapDispatchPropsType,
+  // OwnPropsType,
+  // AppStateType >
+  connect 
     (mapStateToProps,
     {
       follow,

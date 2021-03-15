@@ -7,9 +7,9 @@ import { ProfileType } from "../../redux/type/type"
 type PropsType = {
   profile: ProfileType;
   status: string;
-  updateStatus: () => void;
+  updateStatus: (status: string) => void;
   owner: string;
-  savePhoto: () => void;
+  savePhoto: (e: any) => void;
 };
 
 const Profile: React.FC<PropsType> = ({

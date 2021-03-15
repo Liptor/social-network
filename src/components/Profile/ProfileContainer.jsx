@@ -7,26 +7,25 @@ import {
   updateStatus,
   savePhoto,
 } from "../../redux/profile-reducer";
-import { ProfileType } from "../../redux/type/type";
-import { withRouter, RouteComponentProps } from "react-router-dom";  
+// import { ProfileType } from "../../redux/type/type";
+import { withRouter } from "react-router-dom";  
 import { compose } from "redux";
 import { AppStateType } from "../../redux/redux-store";
 
-type RouterProps = {
-  userId: string;
-};
+// type RouterProps = {
+//   userId: string;
+// };
 
-interface PropsType extends RouteComponentProps<RouterProps> {
-  owner: string;
-  getUserProfile: (userId: string) => void;
-  getStatus: (userId: string) => void;
-  profile: ProfileType;
-  history: any;
-  authorizedUserId: string;
-  status: string;
-  updateStatus: () => void;
-  savePhoto: () => void;
-}
+// interface PropsType extends RouteComponentProps<RouterProps> {
+//   getUserProfile: (userId: string) => void
+//   getStatus: (userId: string) => void
+//   profile: ProfileType
+//   authorizedUserId: string
+//   status: string
+//   updateStatus: (status: string) => void
+//   savePhoto: (e: any) => void
+//   isAuth: boolean
+// }
 
 const ProfileContainer: React.FC<PropsType> = (props) => {
   const [userId, setUserId] = useState("");
@@ -60,7 +59,7 @@ const ProfileContainer: React.FC<PropsType> = (props) => {
   );
 };
 
-let mapStateToProps = (state: AppStateType) => ({
+let mapStateToProps = (state) => ({
   profile: state.profilePage.profile,
   status: state.profilePage.status,
   authorizedUserId: state.auth.userId,
