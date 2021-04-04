@@ -3,7 +3,6 @@ import {follow, unfollow, requestUsers} from "../../redux/users-reducer"
 import {connect} from "react-redux"
 import Users from "./Users"
 import Preloader from "../common/Preloader/Preloader"
-import {withAuthRedirect} from "../hoc/withAuthRedirect"
 import {compose} from "redux"
 import {
     getCurrentPage,
@@ -30,7 +29,7 @@ type MapDispatchPropsType = {
     getUsers: (currentPage: number, pageSize: number) => void,
 }
 type OwnPropsType = {
-    pageTitle: string,
+    pageTitle: string
 }
 
 type PropsType = MapStatePropsType & MapDispatchPropsType & OwnPropsType
@@ -46,7 +45,7 @@ const UsersContainer: React.FC<PropsType> = (props) => {
 
     return (
         <>
-            <h2>{props.pageTitle}</h2>
+            {/*<h2>{props.pageTitle}</h2>*/}
             {props.isFetching ? <Preloader/> : null}
             <Users
                 totalUsersCount={props.totalUsersCount}
@@ -82,5 +81,5 @@ export default compose(
             unfollow,
             getUsers: requestUsers,
         }),
-    withAuthRedirect
+    // withAuthRedirect
 )(UsersContainer)
