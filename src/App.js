@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css';
-import Navbar from './components/Navbar/Navbar';
+import Navbar from './components/Navbar/NavbarContainer';
 import News from './components/News/News'
 import Music from './components/Music/Music'
 import Settings from './components/Settings/Settings'
@@ -30,7 +30,7 @@ class App extends React.Component {
             <BrowserRouter>
                 <div className="app-wrapper">
                     <HeaderContainer />
-                    <Navbar store={this.props.store} />
+                    <Navbar />
                     <div className="app-wrapper-content">
                         <Route path="/dialogs" render={() => <DialogsContainer />} />
                         <Route path="/profile/:userId?" render={() => <ProfileContainer />} />

@@ -1,13 +1,28 @@
+import React from "react";
 import "./Navbar.module.css";
-import { compose } from "redux";
-import { connect } from "react-redux";
+import {DialogsDataType} from "../../redux/type/type";
+import {AppStateType} from "../../redux/redux-store";
+import {getFriendsToSidebar} from "./navbar-selector";
+import {compose} from "redux";
+import {connect} from "react-redux";
 import Navbar from "./Navbar";
-import { AppStateType } from "../../redux/redux-store";
 
-let mapStateToProps = (state: AppStateType) => {
-  return {
-    friend: state.sidebar.friend
-  }
+export type NavbarContType = {
+    friend: Array<DialogsDataType>
 }
 
-export default compose(connect(mapStateToProps, {}))(Navbar)
+const NavbarContainer: React.FC<NavbarContType> = (props) => {
+    return (
+        <Navbar friend={props.friend}/>
+    )
+}
+
+let mapStateToProps = (state: AppStateType) => {
+    return {
+        friend: getFriendsToSidebar(state)
+    }
+}
+
+export default compose(
+    connect(mapStateToProps)
+)(NavbarContainer)

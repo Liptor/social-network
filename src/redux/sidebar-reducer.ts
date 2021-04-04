@@ -8,9 +8,9 @@ let initialState = {
     ] as Array<DialogsDataType>
 }
 
-export type SitebarStateType = typeof initialState
+export type SidebarStateType = typeof initialState
 
-const sidebarReducer = (state = initialState, action: any): SitebarStateType => {
+const sidebarReducer = (state = initialState, action: any): SidebarStateType => {
     return state 
 };
 

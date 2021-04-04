@@ -1,4 +1,3 @@
-import { Dispatch } from "react";
 import { userAPI } from "../api/api";
 import { AppStateType } from "./redux-store";
 import { UsersType } from "./type/type";
