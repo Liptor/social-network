@@ -21,6 +21,7 @@
     "classnames": "^2.2.6",
     "jquery": "^3.5.1",
     "mobx": "^6.2.0",
+    "mobx-react-lite": "^3.2.0",
     "mp-jsx": "^1.4.7",
     "package.json": "^2.0.1",
     "react": "^17.0.1",

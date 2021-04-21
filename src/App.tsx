@@ -1,4 +1,6 @@
 import React, {useEffect} from "react"
+import { observer } from "mobx-react-lite"
+import AppState from './mobX/app'
 import "bootstrap/dist/css/bootstrap.min.css"
 import "./App.css"
 import News from "./components/News/News"
@@ -10,8 +12,6 @@ import UsersContainer from "./components/Users/UsersContainer"
 import ProfileContainer from "./components/Profile/ProfileContainer"
 import HeaderContainer from "./components/Header/HeaderContainer"
 import LoginPage from "./components/Login/LoginContainer"
-import {connect} from "react-redux"
-import {compose} from "redux"
 import Preloader from "./components/common/Preloader/Preloader"
 import {initializeApp} from "./redux/app-reducer"
 import {AppStateType} from "./redux/redux-store"
@@ -24,12 +24,12 @@ type AddType = {
     pageTitle: string
 }
 
-const App: React.FC<AddType> = ({initializeApp, initialized}) => {
+const App: React.FC<AddType> = observer(({initializeApp, initialized}) => {
     useEffect(() => {
-        initializeApp()
+        AppState.initializeApp()
     }, [initializeApp])
 
-    if (!initialized) {
+    if (!AppState.initialized) {
         return <Preloader/>
     }
 
@@ -50,14 +50,10 @@ const App: React.FC<AddType> = ({initializeApp, initialized}) => {
                 </div>
             </div>
         </BrowserRouter>
-    );
-};
-
-const mapStateToProps = (state: AppStateType) => ({
-    initialized: state.app.initialized
+    )
 })
 
 export default compose(
     withRouter,
-    connect(mapStateToProps, {initializeApp})
+    connect(, {initializeApp})
 )(App)
