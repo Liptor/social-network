@@ -10,11 +10,11 @@ import {
 // import { ProfileType } from "../../redux/type/type";
 import { withRouter } from "react-router-dom";  
 import { compose } from "redux";
-import { AppStateType } from "../../redux/redux-store";
+// import { AppStateType } from "../../redux/redux-store";
 
 // type RouterProps = {
-//   userId: string;
-// };
+//   userId: string
+// }
 
 // interface PropsType extends RouteComponentProps<RouterProps> {
 //   getUserProfile: (userId: string) => void
@@ -27,7 +27,7 @@ import { AppStateType } from "../../redux/redux-store";
 //   isAuth: boolean
 // }
 
-const ProfileContainer: React.FC<PropsType> = (props) => {
+const ProfileContainer = (props) => {
   const [userId, setUserId] = useState("");
 
   const refreshData = () => {
