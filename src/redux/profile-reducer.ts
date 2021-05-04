@@ -1,6 +1,6 @@
 import { Action } from "redux";
 import { ThunkAction } from "redux-thunk";
-import { profileAPI } from "../api/api";
+import {profileAPI, ResultCodesEnum} from "../api/api";
 import { PhotosType, ProfileType, RootState } from "./type/type";
 
 const ADD_POST = "ADD-POST";
@@ -89,38 +89,35 @@ export const setPhotoSuccess = (photos: PhotosType): SetPhotoSuccessType => ({ t
 // export const deletePost = (status) =>
 //     ({ type: SET_STATUS, status });
 
-export const getUserProfile = (userId: number): ThunkAction<void, RootState, unknown, Action<string>> => {
-  return (dispatch: any) => {
-    profileAPI.getProfile(userId).then((response) => {
+type ThunkType = ThunkAction<void, RootState, unknown, Action<string>>
+
+export const getUserProfile = (userId: number): ThunkType => async dispatch => {
+    await profileAPI.getProfile(userId).then((response) => {
       dispatch(setUserProfile(response.data));
-    });
-  };
-};
+    })
+}
 
-export const getStatus = (userID: number): ThunkAction<void, RootState, unknown, Action<string>> => {
-  return (dispatch: any) => {
-    profileAPI.getStatus(userID).then((response) => {
-      dispatch(setStatus(response.data));
-    });
-  };
-};
+export const getStatus = (userID: number): ThunkType => async dispatch => {
+    await profileAPI.getStatus(userID).then((response) => {
+      dispatch(setStatus(response.data))
+    })
+}
 
-export const updateStatus = (status: string): ThunkAction<void, RootState, unknown, Action<string>> => {
-  return (dispatch: any) => {
-    profileAPI.updateStatus(status).then((response: any) => {
-      if (response.data.resultCode === 0) {
+export const updateStatus = (status: string): ThunkType => async dispatch => {
+    await profileAPI.updateStatus(status).then((response: any) => {
+      if (response.data.resultCode === ResultCodesEnum.Success) {
         dispatch(setStatus(status));
       }
-    });
-  };
-};
+    })
+}
 
-export const savePhoto = (file: any): ThunkAction<void, RootState, unknown, Action<string>> => async (dispatch: any) => {
+
+export const savePhoto = (file: any): ThunkType => async dispatch => {
   let response = await profileAPI.savePhoto(file);
 
-  if (response.data.resultCode === 0) {
+  if (response.data.resultCode === ResultCodesEnum.Success) {
     dispatch(setPhotoSuccess(response.data.data.photos));
   }
-};
+}
 
 export default profileReducer;

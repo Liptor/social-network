@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {ContactsType} from "../redux/profile-reducer";
 
 const instance = axios.create({
     withCredentials: true,
@@ -12,39 +13,88 @@ const instance = axios.create({
 //     instance.userID = 2;
 // }
 
+type UserType = {
+    id: number
+    name: string
+    status: string
+    photos: {
+        small: string
+        large: string
+    }
+    followed: boolean
+}
+
+type GetUserType = {
+    items: Array<UserType>
+    totalCount: number
+    error: string
+}
+
+type ResponseType = {
+    resultCode: ResultCodesEnum
+    messages: Array<string>
+    data: {}
+}
+
 export const userAPI = {
     getUsers(currentPage: number, pageSize: number) {
-        return instance.get(`users?page=${currentPage}&count=${pageSize}`)
+        return instance.get<GetUserType>(`users?page=${currentPage}&count=${pageSize}`)
     },
     follow(userId: number) {
-        return instance.post(`follow/${userId}`);
+        return instance.post<ResponseType>(`follow/${userId}`);
     },
     unfollow(userId: number) {
-        return instance.delete(`unfollow/${userId}`);
+        return instance.delete<ResponseType>(`unfollow/${userId}`);
     }
 }
 
+type GetProfileType = {
+    data: {
+        userId: number
+        lookingForAJob: boolean
+        lookingForAJobDescription: string
+        fullName: string
+        contacts: ContactsType
+        photos: {
+            small: string
+            large: string
+        }
+    }
+}
+
+type PhotoType = {
+    data: {
+        photos: {
+            small: string
+            large: string
+        }
+    }
+    resultCode: ResultCodesEnum
+    messages: Array<string>
+}
+
+
 export const profileAPI = {
     getProfile(userId: number) {
-        return instance.get(`profile/` + userId);
+        return instance.get<GetProfileType>(`profile/` + userId);
     },
     getStatus(userId: number) {
-        return instance.get(`profile/status/` + userId);
+        return instance.get<any>(`profile/status/` + userId);
     },
     putStatus(status: string) {
-        return instance.put(`profile/status/`, { status: status });
+        return instance.put<ResponseType>(`profile/status/`, { status: status });
     },
     savePhoto(photoFile: string) {
-        const formData = new FormData();
-        formData.append('image', photoFile);
-        return instance.put(`profile/photo`, formData, {
+        const formData = new FormData()
+        formData.append('image', photoFile)
+        return instance.put<PhotoType>(`profile/photo`, formData, {
             headers: {
                 "Content-Type": 'multipart/form-data'
             }
-        });
+        })
     },
     updateStatus(status: string) {
-        return instance.put(`profile/status`, status)
+        return instance.put<ResponseType>(`profile/status`, status)
     }
 }
 

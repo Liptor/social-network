@@ -33,7 +33,7 @@ const dialogsReducer = (state = initialState, action: any): InitialStateType => 
                 ...state,
                 messages: [...state.messages, { id, message }] 
             }
-        };
+        }
         default:
             return state
     }

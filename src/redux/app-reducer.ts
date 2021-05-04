@@ -28,6 +28,7 @@ type InitializedSuccessType = {
 }
 export const initializedSuccess = (): InitializedSuccessType => ({ type: INITIALIZED_SUCCESS });
 
+
 export const initializeApp = (): ThunkAction<void, RootState, unknown, Action<string>> => {
     return (dispatch: any) => {
         let promise = dispatch(getAuthUserData());

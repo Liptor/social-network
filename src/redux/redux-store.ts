@@ -21,6 +21,10 @@ let rootReducer = combineReducers({
 type RootReducerType = typeof rootReducer
 export type AppStateType = ReturnType<RootReducerType>
 
+type PropertiesType<T> = T extends {[key: string]: infer U} ? U : never
+
+export type InferActionsType<T extends {[key: string]: (...args: any[]) => any} > = ReturnType<PropertiesType<T>>
+
 let store = createStore(rootReducer, applyMiddleware(thunkMiddleware))
 
 export default store
