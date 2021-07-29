@@ -2,7 +2,7 @@ import { getAuthUserData } from "./auth-reducer"
 import { RootState } from "./type/type"
 import { ThunkAction } from 'redux-thunk'
 import { Action } from "redux"
-import {BaseThunkType, InferActionsType} from "./redux-store"
+import { BaseThunkType, InferActionsType } from "./redux-store"
 
 let initialState = {
     initialized: false

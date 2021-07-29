@@ -1,5 +1,5 @@
-import {ResultCodesEnum, userAPI} from "../api/api";
-import {AppStateType, InferActionsType} from "./redux-store";
+import { ResultCodesEnum, userAPI } from "../api/api";
+import { AppStateType, InferActionsType } from "./redux-store";
 import { UsersType } from "./type/type";
 import { ThunkAction } from 'redux-thunk'
 
@@ -70,7 +70,7 @@ export const actions = {
     unfollowSuccess: (userId: number) =>
         ({ type: 'UNFOLLOW', userId } as const),
     setUsers: (users: Array<UsersType>) => ({ type: 'SET_USERS', users } as const),
-    setCurrentPage: (currentPage: number) => ({ type: 'SET_CURRENT_PAGE', currentPage } as const) ,
+    setCurrentPage: (currentPage: number) => ({ type: 'SET_CURRENT_PAGE', currentPage } as const),
     setTotalUsersCount: (totalUsersCount: number) => ({ type: 'SET_TOTAL_USERS_COUNT', count: totalUsersCount } as const),
     toggleIsFetching: (isFetching: boolean) => ({ type: 'TOGGLE_IS_FETCHING', isFetching } as const),
     toggleFollowingProgress: (isFetching: boolean, userId: number) => ({ type: 'TOGGLE_IS_FOLLOWING_PROGRESS', isFetching, userId } as const)

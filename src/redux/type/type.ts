@@ -30,6 +30,11 @@ export type DialogsDataType = {
   name: string
 }
 
+export type MessagesType = {
+    id: number
+    message: string
+}
+
 export type RootState = {
   isOn: boolean
 } 
