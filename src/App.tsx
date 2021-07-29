@@ -24,7 +24,8 @@ type AddType = {
     pageTitle: string
 }
 
-const App: React.FC<AddType> = ({initializeApp, initialized}) => {
+const
+    App: React.FC<AddType> = ({initializeApp, initialized}) => {
     useEffect(() => {
         initializeApp()
     }, [initializeApp])
@@ -50,14 +51,14 @@ const App: React.FC<AddType> = ({initializeApp, initialized}) => {
                 </div>
             </div>
         </BrowserRouter>
-    );
-};
+    )
+}
 
 const mapStateToProps = (state: AppStateType) => ({
     initialized: state.app.initialized
 })
 
-export default compose(
+export default compose<React.ComponentType>(
     withRouter,
     connect(mapStateToProps, {initializeApp})
 )(App)
