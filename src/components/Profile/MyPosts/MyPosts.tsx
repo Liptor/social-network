@@ -13,7 +13,7 @@ const MyPosts: React.FC<MyPostsType> = ({
   newPostText,
   addPost,
 }) => {
-  let postsElemenst = postsData.map((p: any) => (
+  let postsElements = postsData.map((p: any) => (
     <Post key={p.id} message={p.message} />
   ));
 
@@ -22,7 +22,7 @@ const MyPosts: React.FC<MyPostsType> = ({
       <h3>My Posts</h3>
       <div className={s.myPosts}>
         <PostForm addPost={addPost} newPostText={newPostText} />
-        <div className={s.posts}>{postsElemenst}</div>
+        <div className={s.posts}>{postsElements}</div>
       </div>
     </div>
   );
