@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { authAPI, ResultCodesEnum } from "../../api/api";
 import { InferActionsType } from "./store";
 
 interface IAuthSlice {
@@ -21,6 +22,26 @@ export const actions = {
 
 type ActionsTypes = InferActionsType<typeof actions>
 
+const getAuthUserData = createAsyncThunk('app/auth', async () => {
+    let meData = await authAPI.me()
+
+    if (await meData.resultCode === ResultCodesEnum.Success) {
+        return await meData.data;
+        // dispatch(actions.setAuthUserData(id, email, login, true));
+    }
+})
+
+const login = createAsyncThunk('app/auth/login', async (email: string, password: string, rememberMe: boolean) => {
+    let loginData = await authAPI.login(email, password, rememberMe)
+
+    if (loginData.resultCode === ResultCodesEnum.Success) {
+        dispatch(getAuthUserData())
+    } else {
+        let message = loginData.messages.length > 0 ?
+            loginData.messages[0] : 'Some error'
+        dispatch(stopSubmit('login', { email: message } ))
+    }
+})
 
 const authSlice = createSlice({
     name: 'auth',
@@ -29,13 +50,18 @@ const authSlice = createSlice({
         setAuthUserData: (state, action: ActionsTypes) => {
             state = action.payload
         }
+    },
+    extraReducers: (builder) => {
+        builder.addCase(getAuthUserData.fulfilled, (state,action) => {
+            // @ts-ignore
+            let {id, email, login, isAuth} = action.payload
+            
+            state = {userId: id, email, login, isAuth}
+        })
     }
 })
 
-// const getAuthUserData = createAsyncThunk('app/auth',
-//     if (await authAPI.me().resultCode ===  ResultCodesEnum.Success) {
-//         let { id, email, login } = await authAPI.me().data;
-//         dispatch(actions.setAuthUserData(id, email, login, true));
-// })
 
-const { setAuthUserData } = authSlice.actions
+
+export const { setAuthUserData } = authSlice.actions
+export default authSlice.reducer
