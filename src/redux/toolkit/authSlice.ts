@@ -27,20 +27,12 @@ const getAuthUserData = createAsyncThunk('app/auth', async () => {
 
     if (await meData.resultCode === ResultCodesEnum.Success) {
         return await meData.data;
-        // dispatch(actions.setAuthUserData(id, email, login, true));
+        // setAuthUserData(id, email, login, true)
     }
 })
 
 const login = createAsyncThunk('app/auth/login', async (email: string, password: string, rememberMe: boolean) => {
-    let loginData = await authAPI.login(email, password, rememberMe)
-
-    if (loginData.resultCode === ResultCodesEnum.Success) {
-        dispatch(getAuthUserData())
-    } else {
-        let message = loginData.messages.length > 0 ?
-            loginData.messages[0] : 'Some error'
-        dispatch(stopSubmit('login', { email: message } ))
-    }
+    return await authAPI.login(email, password, rememberMe)
 })
 
 const authSlice = createSlice({
@@ -57,6 +49,15 @@ const authSlice = createSlice({
             let {id, email, login, isAuth} = action.payload
             
             state = {userId: id, email, login, isAuth}
+        })
+        builder.addCase(login, (state, action) => {
+            if (action.resultCode === ResultCodesEnum.Success) {
+               getAuthUserData()
+            } else {
+                let message = loginData.messages.length > 0 ?
+                    loginData.messages[0] : 'Some error'
+                dispatch(stopSubmit('login', { email: message } ))
+            }
         })
     }
 })

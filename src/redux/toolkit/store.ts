@@ -6,7 +6,11 @@ import {configureStore} from '@reduxjs/toolkit';
 export const store = configureStore({
     reducer: {
         app: appSlice,
-        auth: authSlice
+        auth: authSlice,
+        usersPage: usersSlice,
+        sidebar: sidebarSlice,
+        messagesPage: messagesSlice,
+        profilePage: profileSlice
     }
 })
 
